@@ -1,7 +1,9 @@
-package com.doni;
+package com.doni.Frames;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import com.doni.Databases.Inventory_Database;
+import com.doni.Models.Key;
+import com.doni.Databases.Purchase_Database;
+import com.doni.Databases.Purchaser_Database;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,12 +32,10 @@ public class LoginFrame extends JFrame {
 	private int checkNamePassword;
 
 	/** Constructor LoginFrame  initializes the AdminFrame,Purchaser_Database,Inventory_Database,Purchase_Database
-	 * @param mf1 - the frame that is displayed after the users press the button Login
 	 * @param pd1 - the database were is checked if the user that is trying to login exist
 	 * @param ind1 - the database that is used in the CostumerMainFrame to buy items
 	 * @param pnd1 - the database that is used in the CostumerMainFrame to regist the purchases that users made */
-	public LoginFrame(Purchaser_Database pd1,Inventory_Database ind1,Purchase_Database pnd1) 
-	{
+	public LoginFrame(Purchaser_Database pd1,Inventory_Database ind1,Purchase_Database pnd1) {
 		
 		pd = pd1;		
 		pnd = pnd1;
@@ -58,77 +58,12 @@ public class LoginFrame extends JFrame {
 		textField.setColumns(10);
 		
 		JButton btnLogIn = new JButton("Log In");		  
-		btnLogIn.addActionListener(new ActionListener() 		
-		{
-	
-			public void actionPerformed(ActionEvent e) 			 			
-			{
-				
-				if(textField.getText().trim().matches("^[a-zA-Z]+$"))
-				{			
-				
-					checkNamePassword = pd.findNamePasswordLocation(textField.getText(),passwordField.getPassword());				  										  
-		
-					if(textField.getText().equals("") || passwordField.getPassword().length == 0 )				       				  								
-					{
-									
-						System.out.println("Please fill the blank spaces");				  
-			
-					}				       				  								
-					else				       				  								
-					{
-									
-						char[] admin = {'a','d','m','i','n'};					
-					
-						if(textField.getText().equals("admin") && Arrays.equals(passwordField.getPassword(),admin))					     					  										
-						{
-												
-							af = new AdminFrame(LoginFrame.this,ind,pd,pnd);					    
-							af.setVisible(true);
-					    
-							setVisible(false);					  
-					
-						}			             					  										
-						else			             					  										
-						{	   
-											
-							if(checkNamePassword != -1)					        						  												
-							{						
-							
-								Key k = new Key(checkNamePassword);
-							
-								PurchaserMainFrame mf = new PurchaserMainFrame(LoginFrame.this,pd.find(k),ind,pnd);		        															
-								mf.setVisible(true);
-							 
-								setVisible(false);
-						
-							}   			    	        						  											
-							else			 	            						  												
-							{
-													
-								System.out.println("Incorrect username or password");
-						  						
-							}			             					   										
-						}				  				
-					}					
-				}				  							 			  			
-			}
-			
-		});				
+		btnLogIn.addActionListener(e -> btnLogInactionPerformed(e));
 		btnLogIn.setBounds(74, 197, 124, 30);				
 		contentPane.add(btnLogIn);
 		
 		JButton btnSignUp = new JButton("Sign Up");		 		
-		btnSignUp.addActionListener(new ActionListener() 		 		
-		{
-			
-			public void actionPerformed(ActionEvent e) 			 			
-			{
-			
-				sf.setVisible(true);
-				
-			}				  
-		});		
+		btnSignUp.addActionListener(e -> sf.setVisible(true));
 		
 		btnSignUp.setBounds(74, 235, 124, 30);				
 		contentPane.add(btnSignUp);
@@ -145,6 +80,48 @@ public class LoginFrame extends JFrame {
 		passwordField.setBounds(24, 137, 224, 27);				
 		contentPane.add(passwordField);
 
+	}
+
+	public void btnLogInactionPerformed(ActionEvent e) {
+
+		if(textField.getText().trim().matches("^[a-zA-Z]+$")) {
+
+			checkNamePassword = pd.findNamePasswordLocation(textField.getText(),passwordField.getPassword());
+
+			if(textField.getText().equals("") || passwordField.getPassword().length == 0 ) {
+
+				System.out.println("Please fill the blank spaces");
+
+			} else {
+
+				char[] admin = {'a','d','m','i','n'};
+
+				if(textField.getText().equals("admin") && Arrays.equals(passwordField.getPassword(),admin)) {
+
+					af = new AdminFrame(LoginFrame.this,ind,pd,pnd);
+					af.setVisible(true);
+
+					setVisible(false);
+
+				} else {
+
+					if(checkNamePassword != -1) {
+
+						Key k = new Key(checkNamePassword);
+
+						PurchaserMainFrame mf = new PurchaserMainFrame(LoginFrame.this,pd.find(k),ind,pnd);
+						mf.setVisible(true);
+
+						setVisible(false);
+
+					} else {
+
+						System.out.println("Incorrect username or password");
+
+					}
+				}
+			}
+		}
 	}
 }
 

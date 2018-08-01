@@ -1,42 +1,30 @@
-package com.doni;
+package com.doni.Databases;
+
+import com.doni.Models.Key;
+import com.doni.Models.Purchase;
 
 import javax.swing.table.DefaultTableModel;
 
 /** Purchase_Database implements a database of purchases */
 public class Purchase_Database {
-	
+
 	private Purchase[] base;
-	private Inventory_Database ind;	
-	
-	private DefaultTableModel dtm;
-	
-	
+	private Inventory_Database ind;
 	private int NOT_FOUND = -1;
 
 	/** Constructor Database initializes the database 
 	 * @param initial_size - the size of the database
 	 * @param ind1 - the database were the item will be purchased */ 
-	public Purchase_Database(int initial_size,Inventory_Database ind1)
-	{	
-		
-	    dtm = new DefaultTableModel();	  //creates the table model
-		  
-		dtm.addColumn("Items Name");	  
-		dtm.addColumn("Price");	  
-		dtm.addColumn("Quantity");
-		dtm.addColumn("Means of Payment");
-		dtm.addColumn("Total");
-		
+	public Purchase_Database(int initial_size,Inventory_Database ind1) {
+
 		ind = ind1;
 
-		if(initial_size > 0)
-		{
+		if(initial_size > 0) {
 			
 			base = new Purchase[initial_size];
 		
 		}
-		else
-		{
+		else {
 			
 			base = new Purchase[1];
 			
@@ -47,25 +35,21 @@ public class Purchase_Database {
 	/** findLocation is a helper method that searches base for a purchase 
 	 * whose key is k. If found, the index of the purchase is returned,
 	 * else NOT FOUND is returned. */ 
-	public int findLocation(Purchase purchase)
-	{
+	public int findLocation(Purchase purchase) {
 		
 		int rezult = NOT_FOUND;
 		boolean found = false;
 		int i = 0;
 		
-		while(!found && i != base.length)
-		{
+		while(!found && i != base.length) {
 			
-			if(base[i]!= null && base[i].getCostumerID().equals(purchase.getCostumerID()) == true && base[i].getItemID().equals(purchase.getItemID()) == true)
-			{
+			if(base[i]!= null && base[i].getCostumerID().equals(purchase.getCostumerID()) && base[i].getItemID().equals(purchase.getItemID())) {
 			
 				found = true;
 				rezult = i;
 			
 			}
-			else
-			{
+			else {
 			
 				i = i + 1;
 			
@@ -79,14 +63,12 @@ public class Purchase_Database {
 	 * @param purchase - the desired purchase 
 	 * @return (the address of) the desired purchase; 
 	 * return null if purchase not found. */
-	public Purchase find(Purchase purchase)
-	{
+	public Purchase find(Purchase purchase) {
 		
 		Purchase answer = null;
 		int index = findLocation(purchase);
 	    
-		if(index != NOT_FOUND)
-	    {
+		if(index != NOT_FOUND) {
 	    
 			answer = base[index];
 	    	
@@ -99,8 +81,7 @@ public class Purchase_Database {
 	 * @param purchase - the purchase
 	 * @return true, if purchase added; return false if purchase not added because 
 	 * another purchase with the same key already exists in the database */
-	public boolean insert(Purchase purchase)
-	{
+	public boolean insert(Purchase purchase) {
 		boolean success = false;
 		
 		
@@ -108,53 +89,42 @@ public class Purchase_Database {
 			
 			int i = 0;
 			
-			while(!found_empty_place && i != base.length)
-			{
+			while(!found_empty_place && i < base.length) {
 				
-				if(base[i] == null)
-				{
+				if(base[i] == null) {
 					found_empty_place = true;
 					
 				}
-				else
-				{
+				else {
 					i = i +1;
 				}
 			}
 	
-			if(found_empty_place)	      
-			{
+			if(found_empty_place) {
 	     	
 				
-	     		if(ind.delete(purchase.getItemID(), purchase.getQuantity()) == true)
-	     		{
+	     		if(ind.delete(purchase.getItemID(), purchase.getQuantity())) {
 	     			base[i] = purchase;
 	         		
 	     			success = true;	
 	     		
 	     		}	     				
 			}		  
-			else		
-			{
+			else {
 			
 				Purchase[] temp = new Purchase[base.length * 2];			  
 
-				for (int j = 0; j != base.length; j = j + 1)			  
-				{
+				for (int j = 0; j != base.length; j = j + 1) {
 			   	
 					temp[j] = base[j];
 					
 				}
-					temp[base.length] = purchase;				  
-					base = temp;	
-					if(ind.delete(purchase.getItemID(), purchase.getQuantity()) == true)
-		     		{
-		     		
-		     		
-		     			success = true;	
-		     
-		     		
-		     		}			    	
+				temp[base.length] = purchase;
+				base = temp;
+				if(ind.delete(purchase.getItemID(), purchase.getQuantity())) {
+
+					success = true;
+				}
 			}
 	
 		return success;
@@ -164,15 +134,13 @@ public class Purchase_Database {
 	/** delete removes a purchase in the database
 	 * @param purchase - the purchase 
 	 * @return true, if purchase is found and deleted; return false otherwise */	
-	public boolean delete(Purchase purchase)
-	{
+	public boolean delete(Purchase purchase) {
 			
 		boolean rezult = false;
 		
 		int index = findLocation(purchase);
 		
-		if(index != NOT_FOUND)
-		{
+		if(index != NOT_FOUND) {
 		
 			base[index] = null;
 			rezult = true;
@@ -184,29 +152,25 @@ public class Purchase_Database {
 	/** getAllPurchases returns all purchases of a purchaser whose key i k in a table model
 	 * @param k - the purchaser key
 	 * @return - the table model */
-	public DefaultTableModel getAllPurchases(Key k)
-	{
+	public DefaultTableModel getAllPurchases(Key k) {
 		
-		for(int i = 0; i < base.length; i++)
-		{
-		
-			if(base[i] != null && base[i].getCostumerID().equals(k))	
-				
-			{
-		
-			
-	
-				dtm.addRow(new Object[]{base[i].getItemName(),base[i].getPrice(),base[i].getQuantity(),base[i].getMeansOfPayment() ,(base[i].getPrice() * base[i].getQuantity())});
-		   
- 	
-		
-			}
-		}
-		
+		 DefaultTableModel	 dtm = new DefaultTableModel();	  //creates the table model
+		  
+			dtm.addColumn("Items Name");	  
+			dtm.addColumn("Price");	  
+			dtm.addColumn("Quantity");
+			dtm.addColumn("Means of Payment");
+			dtm.addColumn("Total");
+
+        for (Purchase aBase : base) {
+
+            if (aBase != null && aBase.getCostumerID().equals(k)) {
+
+                dtm.addRow(new Object[]{aBase.getItemName(), aBase.getPrice(), aBase.getQuantity(), aBase.getMeansOfPayment(), (aBase.getPrice() * aBase.getQuantity())});
+
+            }
+        }
 		return dtm;
-	}	
-	
-	
-	
+	}
 }
 

@@ -1,22 +1,13 @@
-package com.doni;
+package com.doni.Frames;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-	import javax.swing.JScrollPane;
-	import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-	import javax.swing.event.TableModelListener;
-import java.awt.EventQueue;
+import com.doni.Models.Key;
+import com.doni.Models.Purchaser;
+import com.doni.Databases.Purchaser_Database;
 
 import javax.swing.JFrame;
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
-import javax.swing.JTable;
+
 /** SignupFrame models a frame that will be used after in the LoginFrame the singup button clicked */
 public class SignupFrame extends JFrame {
 	
@@ -82,29 +73,16 @@ public class SignupFrame extends JFrame {
 		contentPane.add(passwordField_1);
 		
 		JButton btnSignUp = new JButton("Sign Up");
-		  btnSignUp.addActionListener(new ActionListener()   
-		  {
-			public void actionPerformed(ActionEvent e) 
-			{
-				 btnOkactionPerformed(e);
-      
-			}
-		  });
+		btnSignUp.addActionListener(e -> btnOkactionPerformed(e));
 		btnSignUp.setBounds(76, 296, 111, 27);
 		contentPane.add(btnSignUp);
 		
 		JButton btnCancle = new JButton("Cancle");
-		  btnCancle.addActionListener(new ActionListener() 
-		  {			
-			  public void actionPerformed(ActionEvent e)			
-			  {
-				
-				
-				  lf.setVisible(true);				
-				  setVisible(false);
-				
-			
-			  }				 
+		  btnCancle.addActionListener(e -> {
+
+			  lf.setVisible(true);
+			  setVisible(false);
+
 		  });
 		btnCancle.setBounds(74, 334, 113, 27);
 		contentPane.add(btnCancle);
@@ -129,61 +107,46 @@ public class SignupFrame extends JFrame {
 	
 	
 	/** The action that is performed after the user  click the "OK" button 	 **/	
-	public void btnOkactionPerformed(ActionEvent e)
-	{
+	public void btnOkactionPerformed(ActionEvent e) {
 		           
 		ID = new Key(count); //the users key gets the index count
 					  
 					  
-		if(textField.getText().trim().equals("") || passwordField.getPassword().length == 0|| passwordField_1.getPassword().length == 0 || textField_3.getText().trim().equals("") )			  
-		{
+		if(textField.getText().trim().equals("") || passwordField.getPassword().length == 0|| passwordField_1.getPassword().length == 0 || textField_3.getText().trim().equals("") ) {
 
 		                    
 			System.out.println("Please fill the blank spaces");
 					  
-		}			  
-		else		  
-		{
+		} else {
 			
-			if(textField.getText().trim().matches("^[a-zA-Z]+$") && textField_3.getText().trim().matches("^[a-zA-Z]+$") )
-			{
-						 
-			if(Arrays.equals(passwordField.getPassword(), passwordField_1.getPassword()))			  
-			{
+			if(textField.getText().trim().matches("^[a-zA-Z]+$") && textField_3.getText().trim().matches("^[a-zA-Z]+$") ) {
+
+				if(Arrays.equals(passwordField.getPassword(), passwordField_1.getPassword())) {
 							  
-							  
-				if(pd.findNameLocation(textField.getText().trim()) != -1)		  
-				{
-								  						 
-					System.out.println("Username alredy exist");
-														  
-				}			  
-				else			
-				{
-															 	                         
-					name = textField.getText().trim();						         
-					password = passwordField.getPassword();						         
-					address = textField_3.getText();				 
-						        
-					purchaser = new Purchaser(ID,name,password,address);
-							 										
-					pd.insert(purchaser); //inserts the purchaser in database
-																		
-					System.out.println("Account created successfully");
-																	
-					count++;  
-					 						  
-				}					 
-			}            
-			else	               
-			{	
-	    		                	  
-				System.out.println("Confirm password does not match password");
-		               		               
-			}
-		}
-			else
-			{
+					if(pd.findNameLocation(textField.getText().trim()) != -1) {
+
+						System.out.println("Username alredy exist");
+
+					} else {
+
+						name = textField.getText().trim();
+						password = passwordField.getPassword();
+						address = textField_3.getText();
+
+						purchaser = new Purchaser(ID,name,password,address);
+
+						pd.insert(purchaser); //inserts the purchaser in database
+
+						System.out.println("Account created successfully");
+
+						count++;
+
+					}
+				} else {
+
+					System.out.println("Confirm password does not match password");
+				}
+			} else {
 				System.out.println("Please enter a valid name");
 			}
 		}							                     

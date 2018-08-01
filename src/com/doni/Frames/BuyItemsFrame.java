@@ -1,7 +1,14 @@
-package com.doni;
+package com.doni.Frames;
+
+import com.doni.Databases.Inventory_Database;
+import com.doni.Databases.Purchase_Database;
+import com.doni.Databases.Purchaser_Database;
+import com.doni.Models.Item;
+import com.doni.Models.Key;
+import com.doni.Models.Purchase;
+import com.doni.Models.Purchaser;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,54 +26,28 @@ public class BuyItemsFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JLabel[] label;
-	
 	private Inventory_Database ind;
 	private Purchase_Database pnd;
 	private Purchase purchase;
-	
-	 private DefaultTableModel dtm;
-	
-	 private JTable t;
+	private DefaultTableModel dtm;
+	private JTable t;
 	private Key itemID;
-	private Key purchaserID;
-	private int i1 = 0;
 	private Purchaser_Database pd;
 	private Purchaser p;
 	private Item i;
-
-	
+	private int i1 = 0;
 	private int count = 0;
 
-	
-
-
-
-	/**
-	 * Create the frame.
-	 */
 	public BuyItemsFrame(JTable table,DefaultTableModel dtm1,Purchaser p1,Item i1,Inventory_Database ind1,Purchaser_Database pd1,Purchase_Database pnd1) {
-		this.dtm = dtm1;
-		this.ind = ind1;
+
+		dtm = dtm1;
+		ind = ind1;
 		t = table;
 		p = p1;
 		i = i1;
-		
-	
-		
 		pd =pd1;
-		
-		
-	
-		
-		this.pnd = pnd1;
-		
-		
-	
-		
-		
-		
-		
+		pnd = pnd1;
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 427, 222);
 		contentPane = new JPanel();
@@ -117,57 +98,38 @@ public class BuyItemsFrame extends JFrame {
 		panel.add(btnCancle);
 	}
 	
-	private void btnOkActionPerformed(ActionEvent evt)
-	{
+	private void btnOkActionPerformed(ActionEvent evt) {
 		
-		itemID = new Key(new Integer(textField.getText().trim()));
+		itemID = new Key(Integer.valueOf(textField.getText().trim()));
 		
-		
-	
-	
-		
-		if(textField.getText().trim().equals("") || textField_1.getText().trim().equals(""))
-		{
+		if(textField.getText().trim().equals("") || textField_1.getText().trim().equals("")){
 			System.out.println("Please fill the blank spaces");
-			
-			
-		}
-		else
-		{
-			if(ind.find(itemID) != null  && ind.findQuantity(itemID) > (new Integer( textField_1.getText().trim())) )
-			{
-								
-			        String name = ind.find(itemID).getName();
-		    	        Key id = ind.find(itemID).getID();
-		    	        double wsp = ind.find(itemID).getWholeSalePrice();
-		    	        double rsp =ind.find(itemID).getRetailPrice();
-		    	        int quantity = ind.findQuantity(ind.find(itemID).getID());
-			        
-				int q = new Integer( textField_1.getText().trim());
-				purchase = new Purchase1(i,p,q);
-				
+
+		} else if(ind.find(itemID) != null  && ind.findQuantity(itemID) > (Integer.valueOf(textField_1.getText().trim())) ) {
+
+				int q = Integer.valueOf(textField_1.getText().trim());
+				String name = ind.find(itemID).getName();
+				Key id = ind.find(itemID).getID();
+				double wsp = ind.find(itemID).getWholeSalePrice();
+				double rsp =ind.find(itemID).getRetailPrice();
+				int quantity = ind.findQuantity(ind.find(itemID).getID());
+
+				purchase = new Purchase(i,p,name,q);
 				pnd.insert(purchase);
-				
-	  
-				ind.getAllItems().setValueAt(new String(name),ind.findLocation(itemID),0);
-			        ind.getAllItems().setValueAt((id).getInt(),ind.findLocation(itemID),1);
-			        ind.getAllItems().setValueAt(wsp,ind.findLocation(itemID),2);
-			        ind.getAllItems().setValueAt(rsp,ind.findLocation(itemID),3);
-			        ind.getAllItems().setValueAt(quantity,ind.findLocation(itemID),4);
-		
-				 i1++;
-					 
+
+				ind.getAllItems().setValueAt(name,ind.findLocation(itemID),0);
+				ind.getAllItems().setValueAt((id).getInt(),ind.findLocation(itemID),1);
+				ind.getAllItems().setValueAt(wsp,ind.findLocation(itemID),2);
+				ind.getAllItems().setValueAt(rsp,ind.findLocation(itemID),3);
+				ind.getAllItems().setValueAt(quantity,ind.findLocation(itemID),4);
+
+				i1++;
+
 				System.out.println("The items were bought successfully");
 				
 				count++;
-			}
-			else
-			{
+		} else {
 				System.out.println("The item dose not exsit or ");
-			}
 		}
-		
-		
-		
 	}
 }

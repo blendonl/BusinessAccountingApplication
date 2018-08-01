@@ -1,4 +1,4 @@
-package com.doni;
+package com.doni.Models;
 
 /**Item models a item with an name, identification key, wholesale price, retail price and quantity */
 public class Item {
@@ -15,8 +15,7 @@ public class Item {
      * @param w_price - the item wholesale price
      * @param r_price - the item retail price
      * @param quantity - the item quantity    */
-	public Item(String name,Key key,double w_price,double r_price,int quantity)
-	{
+	public Item(String name,Key key,double w_price,double r_price,int quantity) {
 		
 		s = name;
 		k = key;
@@ -24,7 +23,6 @@ public class Item {
 		r = r_price;
 		q = quantity;
 
-		
 	}
 	
 	/** getName returns the item name */
@@ -34,8 +32,7 @@ public class Item {
 	}
 	
 	/** getID returns the item key */
-	public Key getID()
-	{
+	public Key getID() {
 		return k;
 		
 	}
@@ -47,15 +44,13 @@ public class Item {
 	}
 	
 	/** getRetailPrice returns the item retailPrice */
-	public double getRetailPrice()
-	{
+	public double getRetailPrice() {
 	
 		return r;
   	}
 	
 	/** getQuantity returns the item quantity */
-	public int getQuantity()
-	{
+	public int getQuantity() {
 	
 		return q;
   	}

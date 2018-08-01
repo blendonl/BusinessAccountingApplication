@@ -1,8 +1,9 @@
-package com.doni;
+package com.doni.Frames;
 
-import java.awt.BorderLayout;
+import com.doni.Models.Key;
+import com.doni.Databases.Purchase_Database;
+
 import java.awt.Dimension;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSeparator;
-import javax.swing.table.DefaultTableModel;
+
 /** StatsFrame models a frame that AdminFrame will use to display a purchaser stats */
 public class StatsFrame extends JFrame {
 
@@ -26,9 +27,8 @@ public class StatsFrame extends JFrame {
 	
     /**Constructor StatsFrame initializes the Purchase_Database, the purchaser identification key and creates the frame
 	 * @param pd1 - the database that is used to view all the purchases 
-	 * @param k1 - the purchaser key  */
-	public StatsFrame(Purchase_Database pd1,Key key) 
-	{
+	 * @param key - the purchaser key  */
+	public StatsFrame(Purchase_Database pd1,Key key) {
 		
 		pd = pd1;
 		purchaserKey = key;

@@ -1,7 +1,8 @@
-package com.doni;
+package com.doni.Frames;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import com.doni.Models.Key;
+import com.doni.Models.Purchase;
+import com.doni.Databases.Purchase_Database;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ import java.util.GregorianCalendar;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import javax.swing.JCheckBox;
+
 /** InvoiceFrame models a invoice */
 public class InvoiceFrame extends JFrame {
 
@@ -57,21 +58,19 @@ public class InvoiceFrame extends JFrame {
 		contentPane.add(lblData);
 		
 		JLabel lblPurchaser = new JLabel("Purchaser:   " + pnd.find(p).getCostumerName());
-		lblPurchaser.setBounds(353, 119, 82, 14);
+		lblPurchaser.setBounds(353, 119, 300, 14);
 		contentPane.add(lblPurchaser);
 		
 		  
-			table = new JTable(); 	
-			table.setModel(pnd.getAllPurchases(k));	
-			table.setPreferredScrollableViewportSize(new Dimension(500,50));		
-			table.setFillsViewportHeight(true);		
-			table.setSize(600,200);
+		table = new JTable();
+		table.setModel(pnd.getAllPurchases(k));
+		table.setPreferredScrollableViewportSize(new Dimension(500,50));
+		table.setFillsViewportHeight(true);
+		table.setSize(600,200);
 
-			JScrollPane scrollPane1 = new JScrollPane(table);   	
-			scrollPane1.setBounds(27,177,646,339);		
-			contentPane.add(scrollPane1);
-		
-	
-	
+		JScrollPane scrollPane1 = new JScrollPane(table);
+		scrollPane1.setBounds(27,177,646,339);
+		contentPane.add(scrollPane1);
+
 	}
 }

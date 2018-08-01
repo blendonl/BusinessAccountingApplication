@@ -1,4 +1,4 @@
-package com.doni;
+package com.doni.Models;
 
 /** Purchaser models a purchaser with a key, name, password and address*/
 public class Purchaser {
@@ -13,8 +13,7 @@ public class Purchaser {
    * @param name - the purchaser name
    * @param password - the purchaser password
    * @param address - the purchaser address */
-	public Purchaser(Key ID,String name,char[] password,String address)
-	{
+	public Purchaser(Key ID,String name,char[] password,String address){
 		k = ID;
 		n = name;
 		a = address;
@@ -24,26 +23,22 @@ public class Purchaser {
 	}
 	
 	/** getID returns the purchaser key */
-	public Key getID()
-	{
+	public Key getID() {
 		return k;
 	}
 	
 	/** getPassword returns the purchaser password */
-	public char[] getPassword()
-	{
+	public char[] getPassword() {
 		return p;
 	}
 	
 	/** getName returns the purchaser name */
-	public String getName()
-	{
+	public String getName() {
 	  return n;
 	}
 	
 	/** getAddress returns the purchaser address */
-	public String getAddress()
-	{
+	public String getAddress() {
 		return a;
 	}
 

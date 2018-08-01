@@ -1,4 +1,7 @@
-package com.doni;
+package com.doni.Panels;
+
+import com.doni.Databases.Purchase_Database;
+import com.doni.Models.Key;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -15,8 +18,7 @@ public class SalesPanel extends JPanel {
 	/** Constructor SalesPanel initializes the identification key of a purchaser and the Purchase_Database
 	 * @param k - Purchaser identification key
 	 * @param pd1 - the Purchase database that the table1 will use to get all purchases of a purchaser */
-	public SalesPanel(Key k,Purchase_Database pd1) 
-	{
+	public SalesPanel(Key k, Purchase_Database pd1) {
 		
 		pd = pd1;
 

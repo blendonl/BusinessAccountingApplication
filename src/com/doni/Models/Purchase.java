@@ -1,4 +1,4 @@
-package com.doni;
+package com.doni.Models;
 
 /** Purchase1 models a purchase with a item, purchaser and quantity*/
 public class Purchase
@@ -15,8 +15,7 @@ public class Purchase
 	 * @param purchaser - the purchaser
 	 * @param quantity - the quantity that the purchaser is going to purchase
 	 * @param meansOfPayment - the means of payment */ 	
-	public Purchase(Item item, Purchaser purchaser,String meansOfPayment, int quantity)
-	{
+	public Purchase(Item item, Purchaser purchaser,String meansOfPayment, int quantity) {
 		
 	    	i = item;		
 	    	p = purchaser;
@@ -28,8 +27,7 @@ public class Purchase
 	
 	/** getCostumerID  returns the Purchaser id . 
 	 * @return the key */    
-	public Key getCostumerID()    
-	{
+	public Key getCostumerID() {
 			
 			  
 	    	return p.getID();
@@ -39,8 +37,7 @@ public class Purchase
 	 
 	/** getPurchaserName returns the Purchasers Name
 	 *@return the  name */  
-	 public String getCostumerName()
-	 {
+	 public String getCostumerName() {
 	
 	    	return p.getName();
  
@@ -48,8 +45,7 @@ public class Purchase
 		  	
 	 /** getItemName returns the Item Name
       *@return the name */   
-	 public String getItemName()   
-	 {
+	 public String getItemName() {
 	
 	    	
 		 return i.getName();
@@ -58,8 +54,7 @@ public class Purchase
 		  
 	 /** getPrice returns the item Price
 	  *@return the WholeSalePrice */  
-	 public double getPrice()   
-	 {
+	 public double getPrice() {
 	
 		 return i.getWholeSalePrice();
 	    
@@ -68,18 +63,16 @@ public class Purchase
 		
 	 /** getItemKey returns the item key
 	  *@return the key */   
-	 public Key getItemID()   
-	 {
+	 public Key getItemID() {
 	
 		 return i.getID();
   
 	 }
 		  
-		
+
 	 /** getQuantity returns the item quantity
-	  *@return the quantity */      
-	 public int getQuantity()   
-	 {
+	  *@return the quantity */
+	 public int getQuantity() {
 	
 		 return q;
    
@@ -88,8 +81,7 @@ public class Purchase
 	 /**getMeansOfPayment returns the items means of payment
 	  * @return the means of payment
 	  */
-	 public String getMeansOfPayment()
-	 {
+	 public String getMeansOfPayment() {
 		 return mop;
 		 
 	 }

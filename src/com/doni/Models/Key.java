@@ -1,4 +1,4 @@
-package com.doni;
+package com.doni.Models;
 
 /** Key models an integer key */
 public class Key 
@@ -7,8 +7,7 @@ public class Key
 	private int key;
 
 	/** Key models an integer key */ 	
-	public Key(int i )
-	{
+	public Key(int i ) {
 	
 		key = i;
 	
@@ -18,8 +17,7 @@ public class Key
 	/** equals compares this Key to another for equality
 	 *   @param c - the other key
 	 *   @return true, if this key equals k�s; return false, otherwise */ 
-	public boolean equals(Key c)
-	{
+	public boolean equals(Key c) {
 	
 		return (key == c.getInt());
 	
@@ -27,14 +25,9 @@ public class Key
 	
 	
 	/** getInt returns the integer value held within this key */
-	public int getInt()
-	{
+	public int getInt() {
 	
 		return key;
 	
 	}
-	
-	
-	
-
 }
